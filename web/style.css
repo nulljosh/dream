@@ -1,96 +1,160 @@
 @import url("https://heyitsmejosh.com/tokens.css");
 
 :root {
-  --ink: #1a1a1a;
-  --paper: #fbfaf8;
-  --line: #e2ded8;
-  --dim: #6b6660;
-  --night: #0b0f18;
-  --night-ink: #eef1f6;
-  --night-dim: rgba(238,241,246,0.66);
+  /* The fractal runs behind the whole page now, so there is one palette: dark.
+     Every text colour below is checked against --panel, not against the shader —
+     the panel is what guarantees contrast when the fold drifts bright underneath. */
+  --night: #080b12;
+  --panel: rgba(8, 11, 18, 0.86);
+  --ink: #f4f7fb;          /* ~17:1 on --panel */
+  --dim: #c3cad4;          /* ~10:1 on --panel, still AAA at body size */
+  --line: rgba(244, 247, 251, 0.16);
+  --line-strong: rgba(244, 247, 251, 0.34);
 }
-@media (prefers-color-scheme: dark) {
-  :root { --ink: #ece9e4; --paper: #14130f; --line: #2c2a26; --dim: #9a948c; }
+
+/* Anyone asking for more contrast gets opaque panels and pure white text. */
+@media (prefers-contrast: more) {
+  :root { --panel: #05070c; --ink: #ffffff; --dim: #e6eaf0; --line: rgba(255,255,255,0.4); }
 }
 
 * { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 body {
   margin: 0;
   padding: 0 0 64px;
-  background: var(--paper);
+  background: var(--night);
   color: var(--ink);
-  font: 16px/1.6 var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  font: 17px/1.65 var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
+  -webkit-font-smoothing: antialiased;
 }
-main, footer { max-width: 640px; margin: 0 auto; padding: 0 20px; }
-main { padding-top: 44px; }
 
-/* Hero. The one place gradients are allowed, same call as the quotestreak landing page:
-   the drift is the product's subject matter (something moving under the surface while you
-   are not looking) and the scrim is legibility, not decoration. The app UI below stays flat. */
+/* Full-page background. Fixed, so it stays put while the journal scrolls over it. */
+#bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+main, footer { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+
+/* Everything below the hero sits on a panel. The fractal is beautiful and it is also
+   a moving, unpredictable contrast surface — text never sits directly on it. */
+main {
+  margin-top: 44px;
+  padding: 28px 24px 32px;
+  background: var(--panel);
+  backdrop-filter: blur(20px) saturate(0.9);
+  -webkit-backdrop-filter: blur(20px) saturate(0.9);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+@supports not (backdrop-filter: blur(1px)) {
+  main, footer .panel { background: #06090f; }  /* no blur means it must be opaque */
+}
+
+.muted { color: var(--dim); font-size: 15px; }
+
+/* Hero */
 .hero {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
-  padding: 96px 20px 84px;
+  padding: 108px 20px 88px;
   text-align: center;
-  background: var(--night);
-  color: var(--night-ink);
 }
 .hero-inner { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
 .hero-icon { display: block; margin: 0 auto 24px; border-radius: 16px; }
-.hero h1 { font-size: clamp(38px, 9vw, 60px); letter-spacing: -0.03em; line-height: 1.05; }
-.hero .sub { margin: 14px auto 28px; max-width: 34rem; color: var(--night-dim); font-size: 17px; }
-.cta {
-  display: inline-block; padding: 11px 24px; border-radius: 100px;
-  background: var(--night-ink); color: var(--night);
-  font-weight: 600; text-decoration: none;
+.hero h1 {
+  margin: 0;
+  font-size: clamp(40px, 9vw, 64px);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.hero .sub {
+  margin: 16px auto 30px;
+  max-width: 34rem;
+  color: var(--ink);
+  font-size: 18px;
 }
 
-/* The fog is drawn in bg.js. This canvas is the background; the hero's own colour
-   shows through only if WebGL is unavailable. */
-#bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; }
-
-/* Scrim: holds the headline over the drift in both themes. */
+/* Scrim: legibility over the fold, which is bright and moving. Sized to the text,
+   not the section, so the fractal still reads at the edges. */
 .hero::after {
-  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse 58% 60% at 50% 46%, rgba(5,7,12,0.80), rgba(5,7,12,0.35) 62%, transparent 82%);
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 62% 66% at 50% 46%, rgba(4, 6, 11, 0.88), rgba(4, 6, 11, 0.5) 58%, transparent 84%);
 }
 
-h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
-.sub { margin: 6px 0 32px; color: var(--dim); }
-.muted { color: var(--dim); font-size: 14px; }
+.cta {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 100px;
+  background: var(--ink);
+  color: #06090f;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+}
 
+/* Form */
 textarea {
   width: 100%;
   padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.45);
   color: var(--ink);
   font: inherit;
   resize: vertical;
 }
-textarea:focus { outline: 2px solid var(--ink); outline-offset: -1px; }
+textarea::placeholder { color: rgba(244, 247, 251, 0.55); }
 
-.row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+/* One focus style everywhere, and it is visible against both the panel and the fractal. */
+:is(a, button, textarea):focus-visible {
+  outline: 3px solid #ffd79a;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+
 button {
-  padding: 9px 18px;
+  padding: 10px 20px;
   border: 1px solid var(--ink);
   border-radius: 8px;
   background: var(--ink);
-  color: var(--paper);
+  color: #06090f;
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
 }
-button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
-button[disabled] { opacity: 0.5; cursor: default; }
+button.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+button[disabled] { opacity: 0.55; cursor: default; }
 
+/* Entries */
 .entry { padding: 24px 0; border-top: 1px solid var(--line); }
 .entry:first-child { margin-top: 32px; }
-.entry:last-child { border-bottom: 1px solid var(--line); }
-.date { font-size: 13px; color: var(--dim); }
+.date { font-size: 14px; color: var(--dim); }
 .body { margin: 8px 0 12px; white-space: pre-wrap; }
-.reading { margin-top: 12px; padding-left: 14px; border-left: 2px solid var(--line); color: var(--dim); white-space: pre-wrap; }
+.reading {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-left: 2px solid var(--line-strong);
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 0 8px 8px 0;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
 .entry .row { justify-content: space-between; }
 .empty { margin-top: 40px; color: var(--dim); }
-footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
+
+footer { margin-top: 28px; }
+footer p { margin: 0 0 10px; }

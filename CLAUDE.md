@@ -68,8 +68,18 @@ res on a retina panel is a lot of fill for a background. Frozen (not blanked) un
 `prefers-reduced-motion`, and it stops drawing on a hidden tab. No WebGL means the hero's
 flat night colour, which is a fine floor.
 
-The `::after` scrim stays: it is legibility over the fog, not decoration. **The journal UI
-below the hero stays flat.**
+The fractal is the background of the **whole page**, not just the hero — a fixed canvas at
+`z-index: -1` that the journal scrolls over.
+
+That makes legibility the hard constraint, because the background is bright, moving and
+unpredictable: **text never sits directly on it.** The hero has a radial scrim sized to the
+text; everything below sits on `--panel`, a near-opaque blurred card. All text colours are
+contrast-checked against `--panel`, never against the shader (~17:1 for `--ink`, ~10:1 for
+`--dim`). If `backdrop-filter` is unsupported the panel goes fully opaque instead of
+translucent, and `prefers-contrast: more` makes it opaque with pure white text. One visible
+focus ring (`#ffd79a`) reads against both the panel and the fold.
+
+There is no light mode. With this background there is nothing for one to mean.
 
 ## House rules that apply here
 No purple, no teal, no gradients, no emojis, no border-stripe accents, no monospace UI.
