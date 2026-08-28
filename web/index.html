@@ -24,17 +24,21 @@
 
 <main id="write">
   <form id="new">
-    <textarea id="text" rows="5" placeholder="I was back in the house with the water rising&hellip;" required></textarea>
+    <textarea id="text" rows="5" required aria-describedby="hint"
+      placeholder="I was back in the house with the water rising&hellip;"></textarea>
     <div class="row">
       <button type="submit">Save</button>
+      <span id="hint" class="muted">Command-Enter saves</span>
       <span id="count" class="muted"></span>
     </div>
   </form>
 
-  <section id="entries" aria-live="polite"></section>
+  <section id="entries"></section>
+  <p id="status" role="status" aria-live="polite" class="sr-only"></p>
 </main>
 
 <footer>
+  <p><button id="export" class="secondary">Export my dreams</button></p>
   <p class="muted">A reading is reflection, not care. If a dream leaves you in distress,
   call or text 988 (US and Canada).</p>
   <p class="muted">Entries stay in this browser. Nothing is stored on a server; interpreting

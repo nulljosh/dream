@@ -40,6 +40,20 @@ Dream text is intimate. Rules, not aspirations:
   citing a date it cannot quote a detail from.
 - **Full sentences.** Without it the model returns fragment lists that read like a horoscope.
 
+## UI decisions worth keeping
+- **Cmd/Ctrl+Enter saves.** Capture speed is the retention problem; reaching for the mouse
+  at 6am is where a fragment gets lost instead of logged.
+- **Delete is two-step** ("Delete" -> "Delete for good?", disarms after 4s). There is no
+  undo, no backup and no server copy, so a single mis-click is permanent. Inline rather
+  than `confirm()`, which is a modal nobody reads.
+- **Export shipped early**, ahead of its v2 slot in the roadmap. With localStorage-only
+  storage, clearing site data is total loss; a JSON download is the only backstop until
+  accounts land.
+- **One live region** (`#status`), not `aria-live` on the entry list — the list is rebuilt
+  on every render, so a live region there re-announces the whole journal each time. Focus
+  is moved to the new reading after a render for the same reason: the node it was on is
+  gone.
+
 ## Interpretation guardrails
 Not a therapist, not a psychic. The copy and the prompt both stay on the side of
 "here is what recurs in your own writing" rather than "this means you will meet a stranger."

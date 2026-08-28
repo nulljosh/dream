@@ -124,7 +124,8 @@ textarea::placeholder { color: rgba(244, 247, 251, 0.55); }
   border-radius: 8px;
 }
 
-.row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.row { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+#count { margin-left: auto; }
 
 button {
   padding: 10px 20px;
@@ -156,5 +157,14 @@ button[disabled] { opacity: 0.55; cursor: default; }
 .entry .row { justify-content: space-between; }
 .empty { margin-top: 40px; color: var(--dim); }
 
+/* Visible to screen readers, not on screen. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+button.armed { border-color: #e0603f; color: #ffb9a4; }
+
 footer { margin-top: 28px; }
+footer p { margin: 0 0 14px; }
 footer p { margin: 0 0 10px; }

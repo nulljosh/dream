@@ -13,6 +13,12 @@ const save = (entries) => localStorage.setItem(KEY, JSON.stringify(entries));
 
 let entries = load();
 
+// Cmd/Ctrl+Enter saves. This gets written half-awake at 6am; reaching for the mouse
+// is the difference between logging a fragment and losing it.
+$("text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) $("new").requestSubmit();
+});
+
 $("new").addEventListener("submit", (e) => {
   e.preventDefault();
   const text = $("text").value.trim();
@@ -21,7 +27,14 @@ $("new").addEventListener("submit", (e) => {
   save(entries);
   $("text").value = "";
   render();
+  say("Dream saved.");
 });
+
+// One live region for the whole app. The entry list must NOT be one, or every render
+// re-announces the entire journal.
+function say(msg) {
+  $("status").textContent = msg;
+}
 
 function render() {
   $("count").textContent = entries.length
@@ -46,6 +59,7 @@ function render() {
 function view(entry) {
   const el = document.createElement("article");
   el.className = "entry";
+  el.dataset.id = entry.id;
 
   const date = document.createElement("div");
   date.className = "date";
@@ -61,19 +75,35 @@ function view(entry) {
   const row = document.createElement("div");
   row.className = "row";
 
+  // Two-step, because deleting a dream is permanent and there is no undo and no backup.
+  // Inline rather than confirm(), which is a modal nobody reads.
   const del = document.createElement("button");
   del.className = "secondary";
   del.textContent = "Delete";
+  let armed = false;
   del.onclick = () => {
+    if (!armed) {
+      armed = true;
+      del.textContent = "Delete for good?";
+      del.classList.add("armed");
+      setTimeout(() => {
+        armed = false;
+        del.textContent = "Delete";
+        del.classList.remove("armed");
+      }, 4000);
+      return;
+    }
     entries = entries.filter((e) => e.id !== entry.id);
     save(entries);
     render();
+    say("Dream deleted.");
   };
 
   el.append(date, body, row);
 
   const reading = document.createElement("p");
   reading.className = "reading";
+  reading.tabIndex = -1;
 
   if (entry.reading) {
     reading.textContent = entry.reading;
@@ -91,6 +121,11 @@ function view(entry) {
       entry.reading = await interpret(entry);
       save(entries);
       render();
+      // render() rebuilds the list, so focus would otherwise fall back to the body.
+      // Put it on the reading the person just asked for.
+      const fresh = document.querySelector(`[data-id="${entry.id}"] .reading`);
+      fresh?.focus();
+      say("Reading ready.");
     } catch (err) {
       reading.textContent = err.message;
       el.append(reading);
@@ -124,5 +159,20 @@ async function interpret(entry) {
   }
   return data.reading;
 }
+
+// Export is the only backstop against clearing site data, since nothing is stored
+// anywhere else. Cheap insurance until accounts land.
+$("export").addEventListener("click", () => {
+  if (!entries.length) return say("Nothing to export yet.");
+  const url = URL.createObjectURL(
+    new Blob([JSON.stringify(entries, null, 2)], { type: "application/json" })
+  );
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `dreams-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  say("Exported.");
+});
 
 render();
