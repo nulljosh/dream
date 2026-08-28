@@ -51,14 +51,19 @@ Keep it. A false positive costs one reading; a false negative interprets a suici
 The footer carries a standing resources line too, because neither guard catches everything.
 
 ## Hero
-`web/index.html` opens with a hero over three slow-drifting blurred lights — pure CSS, no
-canvas, no JS, no image assets, and stopped under `prefers-reduced-motion`. Same shape as
-the bookrank/quotestreak landing heroes.
+Same shape as the bookrank/quotestreak landing heroes. The background is **drifting fog
+drawn as a fragment shader** (`web/bg.js`) — the first version used blurred CSS orbs and
+read as exactly what it was, a gradient. A shader was the way to get something video-like
+with no file to download, no licence, no autoplay rules and no loop seam.
 
-It is the sanctioned exception to the no-gradients rule, on the same grounds quotestreak
-claims: the drift is the subject matter (something moving under the surface while you are
-not watching) and the `::after` scrim is legibility over it, not decoration. **The journal
-UI below the hero stays flat** — do not let the gradients leak downward.
+Domain-warped value-noise fbm, five octaves, folded twice so the shapes move through each
+other rather than sliding past. It runs at half resolution and 30fps — it is fog, nobody
+can tell, and it quarters the GPU cost. Frozen (not blanked) under
+`prefers-reduced-motion`, and it stops drawing on a hidden tab. No WebGL means the hero's
+flat night colour, which is a fine floor.
+
+The `::after` scrim stays: it is legibility over the fog, not decoration. **The journal UI
+below the hero stays flat.**
 
 ## House rules that apply here
 No purple, no teal, no gradients, no emojis, no border-stripe accents, no monospace UI.

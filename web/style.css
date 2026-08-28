@@ -46,21 +46,14 @@ main { padding-top: 44px; }
   font-weight: 600; text-decoration: none;
 }
 
-/* Three slow-drifting lights, the whole animation. No canvas, no JS, no assets. */
-.drift { position: absolute; inset: -20%; z-index: 0; filter: blur(60px); opacity: 0.55; }
-.orb { position: absolute; border-radius: 50%; }
-.o1 { width: 46%; height: 60%; left: 4%;  top: 8%;  background: #2f5d8f; animation: drift-a 34s ease-in-out infinite alternate; }
-.o2 { width: 38%; height: 52%; right: 6%; top: 26%; background: #14496b; animation: drift-b 46s ease-in-out infinite alternate; }
-.o3 { width: 30%; height: 40%; left: 38%; top: 52%; background: #3c6f8c; animation: drift-c 58s ease-in-out infinite alternate; }
-@keyframes drift-a { to { transform: translate3d(16%, 12%, 0) scale(1.2); } }
-@keyframes drift-b { to { transform: translate3d(-14%, -16%, 0) scale(1.15); } }
-@keyframes drift-c { to { transform: translate3d(10%, -20%, 0) scale(0.85); } }
-@media (prefers-reduced-motion: reduce) { .o1, .o2, .o3 { animation: none; } }
+/* The fog is drawn in bg.js. This canvas is the background; the hero's own colour
+   shows through only if WebGL is unavailable. */
+#bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; }
 
 /* Scrim: holds the headline over the drift in both themes. */
 .hero::after {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse 62% 62% at 50% 46%, rgba(9,12,20,0.72), transparent 78%);
+  background: radial-gradient(ellipse 66% 66% at 50% 46%, rgba(6,9,15,0.62), transparent 76%);
 }
 
 h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }

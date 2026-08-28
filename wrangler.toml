@@ -2,6 +2,11 @@ name = "dream"
 main = "worker.js"
 compatibility_date = "2025-07-01"
 
+# workers.dev subdomain off; the app lives on the heyitsmejosh.com zone like every
+# other project here. wrangler creates the DNS record itself on deploy.
+workers_dev = false
+routes = [{ pattern = "dream.heyitsmejosh.com", custom_domain = true }]
+
 # Static site + one API route in a single Worker. Pages was the obvious home for this,
 # but Pages config rejects the rate-limit binding, and an unthrottled public endpoint
 # that bills Workers AI is not worth the tidier layout.
