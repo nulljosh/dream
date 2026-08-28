@@ -9,12 +9,21 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>Dream</h1>
-  <p class="sub">Write it down before it goes. Readings are drawn from your own past entries.</p>
+<header class="hero">
+  <div class="drift" aria-hidden="true">
+    <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+  </div>
+  <div class="hero-inner">
+    <img class="hero-icon" src="icon.svg" width="72" height="72" alt="">
+    <h1>Dream</h1>
+    <p class="sub">Write it down before it goes. A reading comes back drawn from your own
+    past entries, so the same flooded house showing up for the fourth time is something
+    you get told about.</p>
+    <a class="cta" href="#write">Write one</a>
+  </div>
 </header>
 
-<main>
+<main id="write">
   <form id="new">
     <textarea id="text" rows="5" placeholder="I was back in the house with the water rising&hellip;" required></textarea>
     <div class="row">

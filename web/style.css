@@ -5,6 +5,9 @@
   --paper: #fbfaf8;
   --line: #e2ded8;
   --dim: #6b6660;
+  --night: #0b0f18;
+  --night-ink: #eef1f6;
+  --night-dim: rgba(238,241,246,0.66);
 }
 @media (prefers-color-scheme: dark) {
   :root { --ink: #ece9e4; --paper: #14130f; --line: #2c2a26; --dim: #9a948c; }
@@ -12,13 +15,54 @@
 
 * { box-sizing: border-box; }
 body {
-  margin: 0 auto;
-  padding: 40px 20px 64px;
-  max-width: 640px;
+  margin: 0;
+  padding: 0 0 64px;
   background: var(--paper);
   color: var(--ink);
   font: 16px/1.6 var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
 }
+main, footer { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+main { padding-top: 44px; }
+
+/* Hero. The one place gradients are allowed, same call as the quotestreak landing page:
+   the drift is the product's subject matter (something moving under the surface while you
+   are not looking) and the scrim is legibility, not decoration. The app UI below stays flat. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 96px 20px 84px;
+  text-align: center;
+  background: var(--night);
+  color: var(--night-ink);
+}
+.hero-inner { position: relative; z-index: 2; max-width: 560px; margin: 0 auto; }
+.hero-icon { display: block; margin: 0 auto 24px; border-radius: 16px; }
+.hero h1 { font-size: clamp(38px, 9vw, 60px); letter-spacing: -0.03em; line-height: 1.05; }
+.hero .sub { margin: 14px auto 28px; max-width: 34rem; color: var(--night-dim); font-size: 17px; }
+.cta {
+  display: inline-block; padding: 11px 24px; border-radius: 100px;
+  background: var(--night-ink); color: var(--night);
+  font-weight: 600; text-decoration: none;
+}
+
+/* Three slow-drifting lights, the whole animation. No canvas, no JS, no assets. */
+.drift { position: absolute; inset: -20%; z-index: 0; filter: blur(60px); opacity: 0.55; }
+.orb { position: absolute; border-radius: 50%; }
+.o1 { width: 46%; height: 60%; left: 4%;  top: 8%;  background: #2f5d8f; animation: drift-a 34s ease-in-out infinite alternate; }
+.o2 { width: 38%; height: 52%; right: 6%; top: 26%; background: #14496b; animation: drift-b 46s ease-in-out infinite alternate; }
+.o3 { width: 30%; height: 40%; left: 38%; top: 52%; background: #3c6f8c; animation: drift-c 58s ease-in-out infinite alternate; }
+@keyframes drift-a { to { transform: translate3d(16%, 12%, 0) scale(1.2); } }
+@keyframes drift-b { to { transform: translate3d(-14%, -16%, 0) scale(1.15); } }
+@keyframes drift-c { to { transform: translate3d(10%, -20%, 0) scale(0.85); } }
+@media (prefers-reduced-motion: reduce) { .o1, .o2, .o3 { animation: none; } }
+
+/* Scrim: holds the headline over the drift in both themes. */
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(ellipse 62% 62% at 50% 46%, rgba(9,12,20,0.72), transparent 78%);
+}
+
 h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
 .sub { margin: 6px 0 32px; color: var(--dim); }
 .muted { color: var(--dim); font-size: 14px; }
@@ -50,6 +94,7 @@ button[disabled] { opacity: 0.5; cursor: default; }
 
 .entry { padding: 24px 0; border-top: 1px solid var(--line); }
 .entry:first-child { margin-top: 32px; }
+.entry:last-child { border-bottom: 1px solid var(--line); }
 .date { font-size: 13px; color: var(--dim); }
 .body { margin: 8px 0 12px; white-space: pre-wrap; }
 .reading { margin-top: 12px; padding-left: 14px; border-left: 2px solid var(--line); color: var(--dim); white-space: pre-wrap; }

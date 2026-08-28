@@ -50,6 +50,16 @@ deterministic regex in `interpret.js` that returns the resources line before any
 Keep it. A false positive costs one reading; a false negative interprets a suicide note.
 The footer carries a standing resources line too, because neither guard catches everything.
 
+## Hero
+`web/index.html` opens with a hero over three slow-drifting blurred lights — pure CSS, no
+canvas, no JS, no image assets, and stopped under `prefers-reduced-motion`. Same shape as
+the bookrank/quotestreak landing heroes.
+
+It is the sanctioned exception to the no-gradients rule, on the same grounds quotestreak
+claims: the drift is the subject matter (something moving under the surface while you are
+not watching) and the `::after` scrim is legibility over it, not decoration. **The journal
+UI below the hero stays flat** — do not let the gradients leak downward.
+
 ## House rules that apply here
 No purple, no teal, no gradients, no emojis, no border-stripe accents, no monospace UI.
 Sans-serif only (SF or Helvetica via `--font-body`). Design tokens come from
