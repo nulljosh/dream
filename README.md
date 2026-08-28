@@ -19,3 +19,7 @@ Workers AI. No API keys, no build step, no dependencies, no database. Accounts a
 
 ## Not doing
 No dream dictionary lookup table. No astrology, no numerology. No social feed.
+
+## Architecture
+
+<img src="architecture.svg" width="600">
