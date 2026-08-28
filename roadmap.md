@@ -13,8 +13,8 @@ is fine until the thing has been used for a month.
 - [x] Single page: textarea, save, list of past entries. localStorage only, no backend.
 - [x] Worker with static assets + `/api/interpret`, Workers AI (no key), rate limited by IP.
 - [x] Interpret button: sends the new entry + previous entries, renders the reading.
-- [x] `test.mjs` — guards on method, bad JSON, empty/oversized bodies, no dream text echoed
-      in an error, and the distress screen. Run against the dev server or the live URL.
+- [x] `test.mjs` — guards on method, bad JSON, empty/oversized bodies, no dream text echoed in an error, and the distress screen. Run against the dev server or the live URL.
+- [x] Landing page hero (animated drifting blurred lights, pure CSS).
 - [ ] Use it for a month. This is the actual gate on everything below.
 
 ## v2 — accounts and persistence
