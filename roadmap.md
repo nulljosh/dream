@@ -4,22 +4,12 @@
 DONE 2026-08-27. Prompt tested against real dreams before shipping; it fabricated a
 recurrence on the first pass and was rewritten.
 
-## v0 — done (leftovers)
-- [x] Name + App Store availability check. Decided against pursuing (unnecessary until v2).
-- [x] Buy/point a domain. Custom domain at dream.heyitsmejosh.com 2026-08-27.
-
 ## v1 — the smallest useful thing — SHIPPED 2026-08-27
-- [x] Single page: textarea, save, list of past entries. localStorage only, no backend.
-- [x] Worker with static assets + `/api/interpret`, Workers AI (no key), rate limited by IP.
-- [x] Interpret button: sends the new entry + previous entries, renders the reading.
-- [x] `test.mjs` — guards on method, bad JSON, empty/oversized bodies, no dream text echoed in an error, and the distress screen. Run against the dev server or the live URL.
-- [x] Landing page hero (kaleidoscopic fractal shader with sixfold mirror Kali fold, breathing zoom).
 - [ ] Use it for a month. This is the actual gate on everything below.
 
 ## v2 — accounts and persistence
 - [ ] Supabase auth + `dreams` table with RLS keyed to auth.uid(). Check the shared spark
       project's free-tier headroom before creating anything.
-- [x] Export all entries (JSON + plain text) — shipped. Delete-everything still pending.
 - [ ] Delete-everything and ensure no recovery path. Ship with export, not later.
 - [ ] Migrate localStorage entries on first sign-in.
 
