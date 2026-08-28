@@ -56,9 +56,15 @@ drawn as a fragment shader** (`web/bg.js`) — the first version used blurred CS
 read as exactly what it was, a gradient. A shader was the way to get something video-like
 with no file to download, no licence, no autoplay rules and no loop seam.
 
-Domain-warped value-noise fbm, five octaves, folded twice so the shapes move through each
-other rather than sliding past. It runs at half resolution and 30fps — it is fog, nobody
-can tell, and it quarters the GPU cost. Frozen (not blanked) under
+It went through two versions before landing: blurred CSS orbs (read as a gradient), then
+drifting noise fog (better, still too tame). What shipped is a **kaleidoscopic fractal** —
+sixfold mirror symmetry over a Kali fold, breathing zoom, slow counter-rotation. Closer to
+a dream than to weather, which is the point.
+
+The palette is deep blue into amber and coral **by construction**, because this kind of
+visual normally reaches straight for magenta and teal and the house rule bans them. Keep it
+that way. It runs at two-thirds resolution and 30fps — half res smeared the filigree, full
+res on a retina panel is a lot of fill for a background. Frozen (not blanked) under
 `prefers-reduced-motion`, and it stops drawing on a hidden tab. No WebGL means the hero's
 flat night colour, which is a fine floor.
 
