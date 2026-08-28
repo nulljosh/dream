@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dream</title>
+<meta name="description" content="Write down a dream, get back what it might mean — read against your own past dreams.">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Dream</h1>
+  <p class="sub">Write it down before it goes. Readings are drawn from your own past entries.</p>
+</header>
+
+<main>
+  <form id="new">
+    <textarea id="text" rows="5" placeholder="I was back in the house with the water rising&hellip;" required></textarea>
+    <div class="row">
+      <button type="submit">Save</button>
+      <span id="count" class="muted"></span>
+    </div>
+  </form>
+
+  <section id="entries" aria-live="polite"></section>
+</main>
+
+<footer>
+  <p class="muted">A reading is reflection, not care. If a dream leaves you in distress,
+  call or text 988 (US and Canada).</p>
+  <p class="muted">Entries stay in this browser. Nothing is stored on a server; interpreting
+  one sends it, and its predecessors, to the model for that request only.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

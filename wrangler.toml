@@ -1,0 +1,19 @@
+name = "dream"
+main = "worker.js"
+compatibility_date = "2025-07-01"
+
+# Static site + one API route in a single Worker. Pages was the obvious home for this,
+# but Pages config rejects the rate-limit binding, and an unthrottled public endpoint
+# that bills Workers AI is not worth the tidier layout.
+[assets]
+directory = "web"
+binding = "ASSETS"
+
+[ai]
+binding = "AI"
+
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "2001"
+simple = { limit = 10, period = 60 }

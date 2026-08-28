@@ -1,0 +1,58 @@
+@import url("https://heyitsmejosh.com/tokens.css");
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #fbfaf8;
+  --line: #e2ded8;
+  --dim: #6b6660;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #ece9e4; --paper: #14130f; --line: #2c2a26; --dim: #9a948c; }
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  padding: 40px 20px 64px;
+  max-width: 640px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.6 var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif);
+}
+h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
+.sub { margin: 6px 0 32px; color: var(--dim); }
+.muted { color: var(--dim); font-size: 14px; }
+
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  resize: vertical;
+}
+textarea:focus { outline: 2px solid var(--ink); outline-offset: -1px; }
+
+.row { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+button {
+  padding: 9px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+button[disabled] { opacity: 0.5; cursor: default; }
+
+.entry { padding: 24px 0; border-top: 1px solid var(--line); }
+.entry:first-child { margin-top: 32px; }
+.date { font-size: 13px; color: var(--dim); }
+.body { margin: 8px 0 12px; white-space: pre-wrap; }
+.reading { margin-top: 12px; padding-left: 14px; border-left: 2px solid var(--line); color: var(--dim); white-space: pre-wrap; }
+.entry .row { justify-content: space-between; }
+.empty { margin-top: 40px; color: var(--dim); }
+footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); }
