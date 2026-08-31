@@ -1,6 +1,6 @@
 // Guard checks for /api/interpret. Run the dev server first:
 //   npx wrangler pages dev web
-//   node test.mjs [base-url]
+//   node integration.mjs [base-url]
 import assert from "node:assert/strict";
 
 const base = process.argv[2] || "http://localhost:8788";
