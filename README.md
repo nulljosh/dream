@@ -8,7 +8,7 @@ The point is the second part. A one-off interpretation is a party trick; a year 
 with the same three symbols in them is worth something.
 
 ## Status
-v1 live: https://dream.trommatic.workers.dev
+v1 live: https://dream.heyitsmejosh.com
 
 Write a dream, save it, hit Interpret. Entries live in your browser only. See `WHITEPAPER.md`
 for the product argument and `roadmap.md` for what is next.
