@@ -7,6 +7,10 @@
 <meta name="description" content="Write down a dream, get back what it might mean — read against your own past dreams.">
 <link rel="icon" href="icon.svg">
 <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#111111">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
@@ -47,5 +51,6 @@
 
 <script src="bg.js"></script>
 <script src="app.js"></script>
+  <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
 </body>
 </html>
