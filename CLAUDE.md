@@ -1,6 +1,6 @@
 # Dream
 
-Dream journal with interpretation. v1 live at https://dream.trommatic.workers.dev
+Dream journal with interpretation and voice entry (Speak button, Whisper on Workers AI via /api/transcribe). Live at https://dream.heyitsmejosh.com
 
 ## What it is
 User writes a dream, app stores it, an LLM returns an interpretation. Value accrues over

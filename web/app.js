@@ -176,3 +176,52 @@ $("export").addEventListener("click", () => {
 });
 
 render();
+
+// Speak: record in the browser, send the bytes once, append the words. Half-awake at
+// 6am, talking beats typing. Audio is sent for that request only, never stored.
+(() => {
+  const btn = $("speak");
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return;
+  btn.hidden = false;
+  let rec = null;
+  btn.addEventListener("click", async () => {
+    if (rec) { rec.stop(); return; }
+    let stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch {
+      say("Microphone blocked.");
+      return;
+    }
+    const chunks = [];
+    rec = new MediaRecorder(stream);
+    rec.ondataavailable = (e) => chunks.push(e.data);
+    rec.onstop = async () => {
+      stream.getTracks().forEach((t) => t.stop());
+      const blob = new Blob(chunks, { type: rec.mimeType });
+      rec = null;
+      btn.textContent = "Speak";
+      btn.classList.remove("armed");
+      btn.disabled = true;
+      say("Listening back…");
+      try {
+        const res = await fetch("/api/transcribe", { method: "POST", body: blob });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.error || "failed");
+        const t = $("text");
+        t.value = (t.value.trim() ? t.value.trim() + " " : "") + data.text;
+        t.dispatchEvent(new Event("input"));
+        t.focus();
+        say("Words added.");
+      } catch (err) {
+        say(err.message === "rate limited" ? "Too many recordings. Wait a minute." : "Could not transcribe that.");
+      } finally {
+        btn.disabled = false;
+      }
+    };
+    rec.start();
+    btn.textContent = "Stop";
+    btn.classList.add("armed");
+    say("Recording.");
+  });
+})();
