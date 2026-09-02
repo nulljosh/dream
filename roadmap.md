@@ -7,7 +7,8 @@ recurrence on the first pass and was rewritten.
 ## v1, the smallest useful thing, SHIPPED 2026-08-27
 - [ ] Use it for a month. This is the actual gate on everything below.
 
-## v2, accounts and persistence
+## v2, voice entry and accounts, VOICE DONE 2026-09-02
+- [x] Voice entry via Whisper on Workers AI (shipped 2026-09-02, 5 tests, records via MediaRecorder, posts blob with same 6 MB cap and rate limiter as text)
 - [ ] Supabase auth + `dreams` table with RLS keyed to auth.uid(). Check the shared spark
       project's free-tier headroom before creating anything.
 - [ ] Delete-everything and ensure no recovery path. Ship with export, not later.
