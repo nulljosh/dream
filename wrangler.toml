@@ -22,3 +22,6 @@ name = "RATE_LIMITER"
 type = "ratelimit"
 namespace_id = "2001"
 simple = { limit = 10, period = 60 }
+
+[observability]
+enabled = true
