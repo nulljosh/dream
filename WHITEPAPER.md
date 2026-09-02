@@ -1,4 +1,6 @@
-# Dream — white paper
+# Dream Technical Whitepaper
+
+**v1.0.0** | August 2026
 
 ## The problem
 People who keep dream journals almost never read them back. The writing takes two minutes
