@@ -19,7 +19,22 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Dream">
     <meta name="twitter:description" content="Write down a dream, get back what it might mean — read against your own past dreams.">
-  </head>
+  <link rel="stylesheet" href="devices.css">
+<script>
+// ponytail: UA sniff, good enough for a mockup. iphone is the default. ?embed = app only, for the landing demo frame.
+(function(u,d){d=/Android/.test(u)?'android':/iPhone|iPad/.test(u)?'iphone':/Windows/.test(u)?'windows':/Mac/.test(u)?'mac':'iphone';document.documentElement.dataset.device=d;if(/[?&]embed\b/.test(location.search))document.documentElement.classList.add('embed')})(navigator.userAgent);
+</script>
+<style>
+/* Live demo: the real app in a frame matching the visitor's device (nimble treatment) */
+.demo{margin:2rem auto 0;text-align:center;position:relative;z-index:2}
+.demo .device-screen{aspect-ratio:9/19.5}
+.demo .device-mac .device-screen,.demo .device-windows .device-screen{aspect-ratio:16/10}
+.demo .device-screen iframe{position:absolute;top:0;left:0;border:0;display:block;transform-origin:0 0;width:390px;height:845px;background:#fff}
+.demo .device-mac .device-screen iframe,.demo .device-windows .device-screen iframe{width:1024px;height:640px}
+.demo-caption{font-size:.9rem;opacity:.65;margin:1rem 0 0}
+.embed .demo,.embed footer,.embed nav,.embed .hero{display:none!important}
+</style>
+</head>
 <body>
 <canvas id="bg" aria-hidden="true"></canvas>
 
@@ -30,6 +45,17 @@
     <p class="sub">Write it down before it goes. A reading comes back drawn from your own
     past entries, so the same flooded house showing up for the fourth time is something
     you get told about.</p>
+<div class="demo">
+  <div class="device device-iphone" id="demoFrame" data-title="Dream"><div class="device-screen"><iframe id="demoApp" title="Dream, live" loading="lazy" data-src="./?embed"></iframe></div></div>
+  <p class="demo-caption">This is the <span id="demoDev">iPhone</span> app, live. Try it.</p>
+</div>
+<script>
+(function(){var names={iphone:'iPhone',android:'Android',mac:'Mac',windows:'Windows'},dev=document.documentElement.dataset.device,f=document.getElementById('demoFrame'),i=document.getElementById('demoApp');
+if(!names[dev])dev='iphone';f.className='device device-'+dev;document.getElementById('demoDev').textContent=names[dev];
+if(!document.documentElement.classList.contains('embed'))i.src=i.dataset.src;
+function fit(){i.style.transform='scale('+(i.parentNode.clientWidth/i.offsetWidth)+')';}fit();addEventListener('resize',fit);})();
+</script>
+
     <a class="cta" href="#write">Write one</a>
   </div>
 </header>
