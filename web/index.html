@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add('js');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dream</title>
@@ -33,6 +34,9 @@
 .demo .device-mac .device-screen iframe,.demo .device-windows .device-screen iframe{width:1024px;height:640px}
 .demo-caption{font-size:.9rem;opacity:.65;margin:1rem 0 0}
 .embed .demo,.embed footer,.embed nav,.embed .hero{display:none!important}
+html.js .reveal{opacity:0;transform:translateY(20px)}
+html.js .reveal.in-view{opacity:1;transform:translateY(0);transition:opacity .6s ease-out,transform .6s ease-out}
+@media (prefers-reduced-motion: reduce){ html.js .reveal{opacity:1;transform:none} }
 </style>
 </head>
 <body>
@@ -76,7 +80,7 @@ function fit(){i.style.transform='scale('+(i.parentNode.clientWidth/i.offsetWidt
   <p id="status" role="status" aria-live="polite" class="sr-only"></p>
 </main>
 
-<footer>
+<footer class="reveal">
   <p><button id="export" class="secondary">Export my dreams</button></p>
   <p class="muted">A reading is reflection, not care. If a dream leaves you in distress,
   call or text 988 (US and Canada).</p>
@@ -87,6 +91,18 @@ function fit(){i.style.transform='scale('+(i.parentNode.clientWidth/i.offsetWidt
 <script src="bg.js"></script>
 <script src="app.js"></script>
   <script>if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));</script>
+
+<script>
+// Scroll-triggered reveal for the footer
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
 
 <!-- share -->
 <style>
