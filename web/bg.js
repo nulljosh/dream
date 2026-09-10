@@ -85,6 +85,9 @@ void main(){
   gl.useProgram(prog);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  // One oversized triangle instead of a two-triangle quad: it still clips to the viewport,
+  // but there's no shared diagonal edge for the GPU to interpolate across, which is the
+  // standard fullscreen-shader trick.
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const p = gl.getAttribLocation(prog, "p");
   gl.enableVertexAttribArray(p);
