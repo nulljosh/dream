@@ -175,6 +175,29 @@ $("export").addEventListener("click", () => {
   say("Exported.");
 });
 
+const deleteAll = $("delete-all");
+let deleteAllTimer;
+deleteAll.addEventListener("click", () => {
+  if (!entries.length) return say("Nothing to delete.");
+  if (!deleteAll.classList.contains("armed")) {
+    deleteAll.classList.add("armed");
+    deleteAll.textContent = "Delete every dream for good?";
+    clearTimeout(deleteAllTimer);
+    deleteAllTimer = setTimeout(() => {
+      deleteAll.classList.remove("armed");
+      deleteAll.textContent = "Delete all dreams";
+    }, 4000);
+    return;
+  }
+  clearTimeout(deleteAllTimer);
+  localStorage.removeItem(KEY);
+  entries = [];
+  deleteAll.classList.remove("armed");
+  deleteAll.textContent = "Delete all dreams";
+  render();
+  say("All dreams deleted.");
+});
+
 render();
 
 // Speak: record in the browser, send the bytes once, append the words. Half-awake at

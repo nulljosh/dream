@@ -10,7 +10,9 @@ recurrence on the first pass and was rewritten.
 ## v2, voice entry and accounts, VOICE DONE 2026-09-02
 - [ ] Supabase auth + `dreams` table with RLS keyed to auth.uid(). Check the shared spark
       project's free-tier headroom before creating anything.
-- [ ] Delete-everything and ensure no recovery path. Ship with export, not later.
+- [x] Delete-everything for the current localStorage journal, with a two-step
+      confirmation. Export remains available first. Account-backed deletion
+      remains part of the future sync work.
 - [ ] Migrate localStorage entries on first sign-in.
 
 ## v3, the part people pay for
