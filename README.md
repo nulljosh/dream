@@ -11,6 +11,8 @@ feeling underneath, and what has shown up before in your own dreams.
 That last part is the point. One interpretation is a party trick. A year of dreams with
 the same three symbols in them is worth something.
 
+<img src="progress.svg" width="460">
+
 ## Screenshots
 
 <p>
