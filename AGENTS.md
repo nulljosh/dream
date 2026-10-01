@@ -1,1 +1,1 @@
-/Users/joshua/Documents/Code/dream/CLAUDE.md
+CLAUDE.md
