@@ -25,7 +25,7 @@ class InterpretException(message: String) : Exception(message)
 // The crisis-language guard (DISTRESS regex in interpret.js) runs
 // server-side on every call through this endpoint, so it applies here too
 // without duplicating it client-side.
-class DreamClient(private val baseUrl: String = "https://dream.heyitsmejosh.com") {
+class DreamClient(private val baseUrl: String = "https://dream.jaybulb.com") {
     private val http = HttpClient {
         install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
     }
