@@ -20,7 +20,7 @@ the same three symbols in them is worth something.
 </p>
 
 ## Status
-v1 live: https://dream.heyitsmejosh.com
+v1 live: https://dream.jaybulb.com
 
 Write a dream. Save it. Hit Interpret. Entries never leave your browser. `WHITEPAPER.md`
 makes the case. `roadmap.md` says what's next.
